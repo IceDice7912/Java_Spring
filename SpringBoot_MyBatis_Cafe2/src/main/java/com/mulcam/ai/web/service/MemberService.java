@@ -29,9 +29,10 @@ memberDAO.memberInsert(m);
 
 
 
-public String login(MemberVO m) throws CafeException {
-	// TODO Auto-generated method stub
-	return null;
+public String login(MemberVO m) { 
+
+return memberDAO.login(m);		 
+
 } 
 
 } 

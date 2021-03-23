@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,34 @@ public class MemberController {
 
 @Autowired MemberService memberService; 
 
+
+@RequestMapping(value = "logout.jes",  
+
+method= {RequestMethod.POST}, 
+
+produces = "application/text; charset=utf8")			 
+
+@ResponseBody 
+
+public String logout(HttpServletRequest request, 
+
+HttpServletResponse response){ 
+
+ 
+
+HttpSession session=request.getSession(false); 
+
+session.invalidate(); 
+
+return ""; 
+
+ 
+
+} 
+
+
+
+
   
 @RequestMapping(value = "login.jes",  
 
@@ -41,7 +70,7 @@ String id=request.getParameter("id");
 String pw=request.getParameter("pw");		 
 
  
-
+JSONObject json=new JSONObject(); 
 try { 
 
 MemberVO m=new MemberVO(id,pw);  
@@ -54,21 +83,28 @@ HttpSession session=request.getSession();
 
 session.setAttribute("member", m); 
 
-return id+"님 접속중"; 
+json.put("name", name); 
+
+
 
 }else { 
 
-return "로그인 실패"; 
+json.put("msg", "로그인 실패"); 
 
 } 
 
 }catch(Exception e) { 
 
-return e.getMessage(); 
+json.put("msg", e.getMessage()); 
 
-}		 
+}	 
+
+return json.toJSONString(); 
 
 } 
+
+
+
 
 
 @RequestMapping(value = "memberInsert.jes",  
@@ -90,6 +126,10 @@ String pw=request.getParameter("pw");
 String name=request.getParameter("name"); 
 
 System.out.println("memberInsert:"+id+"\t"+pw+"\t"+name); 
+
+
+
+
 
  
 

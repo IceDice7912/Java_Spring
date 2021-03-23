@@ -127,7 +127,7 @@
               <a href="#"><img class="card-img-top" src="img/americano.png" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">아메리카노</a>
+<a href="#" class="orderForm" name="아메리카노">아메리카노</a>
                 </h4>
                 <h5>2,500원</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
@@ -159,7 +159,7 @@
               <a href="#"><img class="card-img-top" src="img/cafemocha.png" alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">카페모카</a>
+                  <a href="#" class="orderForm" name="카페모카">카페모카</a> 
                 </h4>
                 <h5>2,750원</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
@@ -243,5 +243,21 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script> 
+
+<script> 
+
+$(function(){ 
+
+ 
+
+var login=$.cookie('logined'); 
+
+$("#msgDiv").html(login); 
+
+}); 
+
+</script> 
 
 </html>
