@@ -32,6 +32,9 @@ public class OrderService {
 						Socket s = ss.accept();
 						ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
 						ObjectInputStream in = new ObjectInputStream(s.getInputStream());	
+						
+						new KitchenThread(s, in, out).start();
+						
 						} catch(IOException e) {
 							System.out.println("Error : " + e);
 						}
@@ -46,6 +49,30 @@ public class OrderService {
 	
 	
 	public long insert(ArrayList<OrderVO> list) {
-		return orderDAO.ordersInsert(list);
+		long order_group_no = orderDAO.insert(list);
+		out.writeObject();
+		return order_group_no;
 	}	
-}
+	
+	private class KitchenThread extends Thread {
+		private Socket s;
+		private ObjectInputStream in;
+		private ObjectOutputStream out;
+
+		public KitchenThread(Socket s, ObjectInputStream in, ObjectOutputStream out) {
+			this.s=s;
+			this.in=in;
+			this.out=out;
+		}
+
+		@Override
+		public void run() {
+			try {
+				while(true) {
+					in.readObject();
+				} } catch (Exception e) {
+					System.out.println("에러 : " + e);
+				}
+			}
+		}
+	}
