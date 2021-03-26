@@ -1,7 +1,10 @@
 package com.mulcam.ai.web.service;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,10 @@ public class OrderService {
 	
 	public OrderService() {
 		try {
-			ss=new ServerSocket();
-			ss.accept();
-			
+			ss=new ServerSocket(9999);
+			Socket s = ss.accept();
+			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+			ObjectInputStream in = new ObjectInputStream(s.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,7 +33,7 @@ public class OrderService {
 	
 	
 	public long insert(ArrayList<OrderVO> list) {
-		return orderDAO.insert(list);
+		return orderDAO.ordersInsert(list);
 	}
 	
 }

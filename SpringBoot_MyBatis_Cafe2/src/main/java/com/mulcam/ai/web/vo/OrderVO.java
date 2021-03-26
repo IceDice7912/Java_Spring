@@ -12,17 +12,21 @@ public class OrderVO {
 	
 	
 
-	public OrderVO() {
+	public OrderVO(String ordermethod, String prodname, long quantity, long order_group_no) {
+		this(ordermethod,prodname,quantity);
+		setOrder_group_no(order_group_no);
+	}
+	public OrderVO(String ordermethod, String prodname, long quantity) {
 		super();
-		// TODO Auto-generated constructor stub
+		setOrdermethod(ordermethod);
+		setProduct_name(prodname);
+		setQuantity(quantity);
+		
 	}
-	
-	
-	
-	
-	public OrderVO(String string, String prodname, long quantity2) {
-		// TODO Auto-generated constructor stub
-	}
+
+
+
+
 
 
 
@@ -63,5 +67,10 @@ public class OrderVO {
 		return "OrderVO [ordermethod=" + ordermethod + ", product_name=" + product_name + ", order_group_no="
 				+ order_group_no + ", quantity=" + quantity + "]";
 	}
+
+
+
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.mulcam.ai.web.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import com.mulcam.ai.web.vo.OrderVO;
 
 @Repository
 public class OrderDAOImpl {
-	
 	@Autowired
 	SqlSession sqlSession;
 	
@@ -31,10 +31,14 @@ public class OrderDAOImpl {
 		return order_group_no;
 	}
 
-	public long insert(ArrayList<OrderVO> list) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<OrderVO> ordersSelect() {
+		return sqlSession.selectList("mapper.order.select");
+		
 	}
 
+	public void delete(Long order_group_no) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("mapper.order.delete",order_group_no);
+	}
 
 }
