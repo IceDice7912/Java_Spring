@@ -23,9 +23,22 @@ public class OrderService {
 	public OrderService() {
 		try {
 			ss=new ServerSocket(9999);
-			Socket s = ss.accept();
-			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
-			ObjectInputStream in = new ObjectInputStream(s.getInputStream());
+//			Socket s = ss.accept();
+//			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+//			ObjectInputStream in = new ObjectInputStream(s.getInputStream());
+			new Thread(()-> {
+					while(true) {
+						try {
+						Socket s = ss.accept();
+						ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+						ObjectInputStream in = new ObjectInputStream(s.getInputStream());	
+						} catch(IOException e) {
+							System.out.println("Error : " + e);
+						}
+					}
+				}
+			).start();	
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -34,6 +47,5 @@ public class OrderService {
 	
 	public long insert(ArrayList<OrderVO> list) {
 		return orderDAO.ordersInsert(list);
-	}
-	
+	}	
 }
