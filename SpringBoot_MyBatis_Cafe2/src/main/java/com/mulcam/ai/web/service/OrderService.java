@@ -1,3 +1,4 @@
+
 package com.mulcam.ai.web.service;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class OrderService {
 	
 	//주문입력
 	public long insert(ArrayList<OrderVO> list) {
-		long order_group_no=orderDAO.insert(list);
+		long order_group_no=orderDAO.ordersInsert(list);
 		//주방으로 주문 통보
 		pushOrders();
 		return order_group_no;

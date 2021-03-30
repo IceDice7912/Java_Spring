@@ -36,14 +36,4 @@ public class OrderDAOImpl {
 		
 	}
 
-	public void delete(Long order_group_no) {
-		// TODO Auto-generated method stub
-		sqlSession.delete("mapper.order.delete",order_group_no);
-	}
-
-	public long insert(ArrayList<OrderVO> list) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
