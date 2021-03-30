@@ -41,4 +41,9 @@ public class OrderDAOImpl {
 		sqlSession.delete("mapper.order.delete",order_group_no);
 	}
 
+	public long insert(ArrayList<OrderVO> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

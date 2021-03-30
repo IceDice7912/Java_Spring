@@ -6,59 +6,81 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mulcam.ai.web.dao.OrderDAO;
 import com.mulcam.ai.web.dao.OrderDAOImpl;
 import com.mulcam.ai.web.vo.OrderVO;
 
 @Service
 public class OrderService {
-
+	
 	@Autowired
 	OrderDAOImpl orderDAO;
 	ServerSocket ss;
+	ArrayList<ObjectOutputStream> kitchenList;
 	
 	public OrderService() {
 		try {
 			ss=new ServerSocket(9999);
-//			Socket s = ss.accept();
-//			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
-//			ObjectInputStream in = new ObjectInputStream(s.getInputStream());
+			kitchenList=new ArrayList<ObjectOutputStream>();			
 			new Thread(()-> {
 					while(true) {
 						try {
-						Socket s = ss.accept();
-						ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
-						ObjectInputStream in = new ObjectInputStream(s.getInputStream());	
-						
-						new KitchenThread(s, in, out).start();
-						
-						} catch(IOException e) {
-							System.out.println("Error : " + e);
+							Socket s=ss.accept();
+							ObjectOutputStream out=new ObjectOutputStream(s.getOutputStream());
+							ObjectInputStream in=new ObjectInputStream(s.getInputStream());
+							kitchenList.add(out);
+							new KitchenThread(s,in,out).start();
+						}catch(IOException e) {
+							e.printStackTrace();
 						}
 					}
 				}
-			).start();	
+			).start();
+			
 			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	
+	//주문입력
 	public long insert(ArrayList<OrderVO> list) {
-		long order_group_no = orderDAO.insert(list);
-		out.writeObject();
+		long order_group_no=orderDAO.insert(list);
+		//주방으로 주문 통보
+		pushOrders();
 		return order_group_no;
-	}	
+	}
 	
-	private class KitchenThread extends Thread {
-		private Socket s;
-		private ObjectInputStream in;
-		private ObjectOutputStream out;
+	public List<OrderVO> ordersSelect(){
+		List<OrderVO> list=orderDAO.ordersSelect();		
+		return list;
+	}
 
+	
+	public void pushOrders() {
+		System.out.println("pushOrders");
+		List<OrderVO> all_list=ordersSelect();	
+		for(ObjectOutputStream out:kitchenList) {
+			try {
+				out.writeObject(all_list);
+			} catch (IOException e) {				
+				System.out.println(4+":"+e.getMessage());
+			}
+		}
+	}
+
+	
+	private class KitchenThread extends Thread{
+		Socket s; 
+		ObjectInputStream in;
+		ObjectOutputStream out;
+		
 		public KitchenThread(Socket s, ObjectInputStream in, ObjectOutputStream out) {
 			this.s=s;
 			this.in=in;
@@ -68,11 +90,28 @@ public class OrderService {
 		@Override
 		public void run() {
 			try {
-				while(true) {
-					in.readObject();
-				} } catch (Exception e) {
-					System.out.println("에러 : " + e);
+				while(true) {				
+					String req=(String)in.readObject();	
+					if(req.equals("ordersSelect")) {
+						pushOrders();
+					}
 				}
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
+	
+	 
+
+}//end OrderService
+
+
+
+
+
+
+
+
+
+
