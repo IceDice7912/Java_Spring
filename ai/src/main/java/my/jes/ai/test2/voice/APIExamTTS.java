@@ -27,13 +27,15 @@ public class APIExamTTS {
     	 		" * 4. 더 긴 텍스트를 읽어서 처리하도록 응용하기";
          String text = URLEncoder.encode(longText, "UTF-8"); // 13자
          String apiURL = "https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts";
-         URL url = new URL(apiURL);
+//         URL url = new URL(apiURL);
+         URL url = new URL("http://localhost:8090/login.jes");
          HttpURLConnection con = (HttpURLConnection)url.openConnection();
          con.setRequestMethod("POST");
-         con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
-         con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
+//         con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
+//         con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
          // post request
-         String postParams = "speaker=nara&volume=0&speed=0&pitch=0&format=mp3&text=" + text;
+//         String postParams = "speaker=nara&volume=0&speed=0&pitch=0&format=mp3&text=" + text;
+         String postParams="id=qwer&pw=asdf";
          con.setDoOutput(true);
          DataOutputStream wr = new DataOutputStream(con.getOutputStream());
          wr.writeBytes(postParams);
