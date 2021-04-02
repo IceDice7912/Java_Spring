@@ -10,7 +10,7 @@ import com.mulcam.ai.web.vo.OrderVO;
 
 public interface OrderDAO {
 
-//	public void insert(ArrayList<OrderVO> list);
+	public void insert(ArrayList<OrderVO> list);
 	
 	
 }

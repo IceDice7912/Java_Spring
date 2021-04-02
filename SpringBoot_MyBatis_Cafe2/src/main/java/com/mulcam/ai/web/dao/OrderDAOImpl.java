@@ -36,4 +36,15 @@ public class OrderDAOImpl {
 		
 	}
 
+	public long insert(ArrayList<OrderVO> list) {
+		System.out.println(list.size());
+		long order_group_no=getOrder_group_no();
+		for(OrderVO orderVO:list) {		
+			orderVO.setOrder_group_no(order_group_no);
+			System.out.println(">>>"+orderVO);
+			sqlSession.insert("mapper.order.insert",orderVO);
+		}
+		return order_group_no;
+	}
+
 }
