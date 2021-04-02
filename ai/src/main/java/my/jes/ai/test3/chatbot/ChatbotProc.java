@@ -1,4 +1,4 @@
-package my.jes.ai.test4.chatbot;
+package my.jes.ai.test3.chatbot;
 
 //import android.media.MediaPlayer;
 //import android.os.Environment;
@@ -26,15 +26,15 @@ public class ChatbotProc {
 	        String chatbotMessage = "";
 
 	        try {
-	            String apiURL = "https://9a72f4a590ed41e2b55bb866f6d2ebea.apigw.ntruss.com/custom/v1/4315/9a1fbbb6a1d07ffc9fd60901e72f54d8c519bef5223b6f8349ea0f63b33ecb59";
+	            String apiURL = "https://9a72f4a590ed41e2b55bb866f6d2ebea.apigw.ntruss.com/custom/v1/4321/2e2aae35f3ac8a47761ec3f23791e3e6b1d17a602f8aba50cb66cac816b60faf";
 
 	            URL url = new URL(apiURL);
 
-	            String voiceMessage="케이크 내놔";
+	            String voiceMessage="라면";
 	            String message = getReqMessage(voiceMessage);
 	            System.out.println("##" + message);
 
-	            String secretKey="V2V4UWNqb3p1UXZWRWpPZ1FkZ0ZabUNQTHRQZFFXVFA=";
+	            String secretKey="U3hVQ3dRUlBVdlF1YndhVmNhRVlmem1UU2p6TEVBTGs=";
 	            String encodeBase64String = makeSignature(message, secretKey);
 
 	            HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -113,7 +113,7 @@ public class ChatbotProc {
 	            System.out.println("##"+timestamp);
 
 	            obj.put("version", "v2");
-	            obj.put("userId", "U47b00b58c90f8e47428af8b7bddc1231heo2LSM");
+	            obj.put("userId", "U47b00b58c90f8e47428af8b7bddc1231heo2IceDice");
 	//=> userId is a unique code for each chat user, not a fixed value, recommend use UUID. use different id for each user could help you to split chat history for users.
 
 	            obj.put("timestamp", timestamp);
