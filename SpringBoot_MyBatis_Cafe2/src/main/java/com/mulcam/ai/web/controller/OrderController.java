@@ -26,27 +26,28 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 
-	///////////// 출고 처리 //////////////////
-	@RequestMapping(value = "output.jes", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String output(HttpServletRequest request, HttpServletResponse response) {
-		JSONObject json = null;
-		try {
-			String order_group_no=request.getParameter("order_group_no");
-			
-			System.out.println(order_group_no + "번 주문을 출고합니다");
-			orderService.update(Long.parseLong(order_group_no));
+///////////// 출고 처리 //////////////////
+@RequestMapping(value = "output.jes", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
+@ResponseBody
+public String output(HttpServletRequest request, HttpServletResponse response) {
+JSONObject json = null;
+try {
+	String order_group_no=request.getParameter("order_group_no");
+	
+	System.out.println(order_group_no + "번 주문을 출고합니다");
+	orderService.update(Long.parseLong(order_group_no));
 
-			json = new JSONObject();
+	json = new JSONObject();
 
-			json.put("order_group_no", order_group_no+"번 품목(들)이 출고 되었습니다");
+	json.put("order_group_no", order_group_no+"번 품목(들)이 출고 되었습니다");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			json.put("msg", e.getMessage());
-		}
-		return json.toJSONString();
-	}
+} catch (Exception e) {
+	e.printStackTrace();
+	json.put("msg", e.getMessage());
+}
+return json.toJSONString();
+}
+
 
 	///////////// 주문 처리 //////////////////
 	@RequestMapping(value = "order.jes", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
