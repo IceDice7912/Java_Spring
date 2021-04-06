@@ -42,13 +42,15 @@ var localstream;
 		
 		$("#pauseBtn").click(function(){
 			video.pause();	
-			
-			localstream.getTracks()[0].stop();
 
 			var canvas = document.getElementById("drawCanvas");
 			var context = canvas.getContext("2d");
 
 			context.drawImage(video, 0, 0, 320, 240);
+
+			
+//			localstream.getTracks()[0].stop();
+
 			
 			//서버에 전송하기
 			const imgBase64 = canvas.toDataURL('image/jpeg','multipart/form-data');
@@ -62,7 +64,7 @@ var localstream;
 			const file = new Blob([ new Uint8Array(array) ], {
 				type : 'image/jpeg'
 			});
-			const fileName = 'snapshot.jpg';
+			const fileName = 'WEB_snapshot_' + Date.now() + ".jpg";
 			let formData = new FormData();
 			formData.append('file', file, fileName);
 			
@@ -79,6 +81,10 @@ var localstream;
 			})
 		});
 		
+		$("#offBtn").click(function(){
+			alert('카메라 끈다!!!!!!!!!')
+
+		});
 		
 	});
 </script>
@@ -94,7 +100,7 @@ var localstream;
 		<br>
 		<input type="button" value="카메라 켜기" id="onBtn">
 		<input type="button" value="찰칵" id="pauseBtn">
-		<input type="button" value="카메라 끄기">
+		<input type="button" value="카메라 끄기" id="offBtn">
 	</center>
 
 

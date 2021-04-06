@@ -15,7 +15,7 @@ public class UploadController {
 	public void upload(@RequestParam("file") MultipartFile file) {
 		System.out.println(file);
 		try {
-			file.transferTo(new File("C:\\Users\\dice7\\Documents\\Eclipse_SpringBoot\\SpringBoot_MyBatis_Cafe2\\SnapShot\\snapshot.png"));
+			file.transferTo(new File("C:\\Users\\dice7\\Documents\\Eclipse_SpringBoot\\SpringBoot_MyBatis_Cafe2\\SnapShot\\"+file.getOriginalFilename()));
 		} catch (IllegalStateException e) {
 			System.out.println("에러 발생 : " + e);
 		} catch (IOException e) {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파일 업로드</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$("#uploadBtn").click(function(){
+		alert('전송한다 씨발!!!!!!!!');
+		
+		let formData = new FormData();
+		formData.append('file', $("#myFileInput")[0].files[0]);
+		
+		$.ajax({
+			type : 'post',
+			url : '../upload',
+			cache : false,
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				$("#msg").html('Uploaded !!');
+			}
+		});
+	});
+});
+	
+</script>
+
+</head>
+<body>
+	<input type="file" id="myFileInput">
+	<br><input type="button" value="전송" id="uploadBtn">
+	<div id="msg"></div>	
+</body>
+</html>
