@@ -3,21 +3,14 @@ package com.mulcam.ai.web.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.mulcam.ai.web.vo.MemberVO; 
-
- 
-
+import com.mulcam.ai.web.vo.MemberVO;
 
 @Mapper
 @Repository("memberDAO")
+public interface MemberDAO {
+	
+	public void memberInsert(MemberVO memberVO) ;
 
-public interface MemberDAO { 
- 
+	public String login(MemberVO memberVO);
 
-public void memberInsert(MemberVO memberVO);
-
-public String login(MemberVO memberVO); 
-
- 
-
-} 
+}
