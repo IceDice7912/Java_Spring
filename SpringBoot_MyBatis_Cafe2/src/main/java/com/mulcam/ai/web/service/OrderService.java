@@ -60,7 +60,7 @@ public class OrderService {
 	public long insert(ArrayList<OrderVO> list) {
 		long order_group_no=orderDAO.insert(list);
 		//주방으로 주문 통보
-		pushOrders();
+		//pushOrders();
 		return order_group_no;
 	}
 	
