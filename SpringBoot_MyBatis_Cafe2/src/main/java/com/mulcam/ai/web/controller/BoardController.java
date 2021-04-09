@@ -77,7 +77,7 @@ public class BoardController {
 				String fileName = file.getOriginalFilename();
 				if (!fileName.equals("")) {
 					System.out.println(fileName);
-					file.transferTo(new File("d:\\tool\\temp\\" + fileName));
+					file.transferTo(new File("C:\\Users\\dice7\\Desktop" + fileName)); //경로 내 바탕화면으로 바꿈
 					articleMap.put("imageFileName", fileName);
 				} else {
 					articleMap.put("imageFileName", "");
@@ -137,14 +137,15 @@ System.out.println("parentNO:"+articleMap.get("parentNO"));
 			String fileName = fileNames.next();
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			imageFileName=mFile.getOriginalFilename();
-			File file = new File("d:\\tool\\temp\\"+ fileName);
+			File file = new File("C:\\Users\\dice7\\Desktop\\"+ fileName); //파일 경로 내 바탕화면으로 해놓음
 			if(mFile.getSize()!=0){ //File Null Check
 				if(! file.exists()){ //경로상에 파일이 존재하지 않을 경우
 					if(file.getParentFile().mkdirs()){ //경로에 해당하는 디렉토리들을 생성
 							file.createNewFile(); //이후 파일 생성
 					}
 				}
-				mFile.transferTo(new File("d:\\tool\\temp\\"+imageFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+//				mFile.transferTo(new File("d:\\tool\\temp\\"+imageFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+				mFile.transferTo(new File("C:\\Users\\dice7\\Desktop\\"+imageFileName));
 			}
 		}
 		return imageFileName;
