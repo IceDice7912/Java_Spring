@@ -23,9 +23,9 @@ import com.google.gson.Gson;
 public class SttTest {
 
     // Clova Speech secret key
-	private static final String SECRET = "ffaed44214be4fabacc59a7fbedc6020";
+	private static final String SECRET = "학원에서 제공해주는 시크릿 키 값";
     // Clova Speech invoke URL
-	private static final String INVOKE_URL = "https://clovaspeech-gw.ncloud.com/external/v1/273/4a8ecfcbec2aa4e7166cff4898f634b1f9dcd2828ef2061096837b92c3e222f9";
+	private static final String INVOKE_URL = "학원에서 제공해주는 유알엘 값";
 
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
 	private Gson gson = new Gson();
