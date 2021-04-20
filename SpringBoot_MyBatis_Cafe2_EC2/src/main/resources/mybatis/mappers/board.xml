@@ -25,8 +25,8 @@
 	
 	<insert id="insert" parameterType="java.util.Map">
 		<![CDATA[
-			insert into board(title,content,imageFileName,id,parentNO) values
-			(#{title},#{content},#{imageFileName},#{id},#{parentNO} )
+			insert into board(title,content,imageFileName,id,parentNO,writeDate) values
+			(#{title},#{content},#{imageFileName},#{id},#{parentNO}, current_timestamp )
 			
 		]]>
 	</insert>
